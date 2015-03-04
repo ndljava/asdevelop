@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import com.ndl.cn.Ball;
+			import com.ndl.cn.Line;
+
+			import mx.events.FlexEvent;
+
+			private var line:Line;
+			private var ball:Ball;
+
+			private var isDown:Boolean=false;
+
+			private var dx:Number=0;
+			private var dy:Number=0;
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.isDown=!this.isDown;
+
+				this.ball.x=this.line.x;
+				this.ball.y=this.line.y - 20;
+
+				this.dx=5;
+				this.dy=5;
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				this.line=new Line();
+				this.addElement(this.line);
+
+				this.line.x=50;
+				this.line.y=300;
+
+				trace(this.getBounds(this.line),"\\\\\\\\1111",this.getRect(this.line))
+				this.line.rotation=30;
+				trace(this.getBounds(this.line),"\\\\\\\\2222",this.getRect(this.line))
+				
+				this.ball=new Ball();
+				this.addElement(this.ball);
+
+				this.ball.x=this.line.x;
+				this.ball.y=this.line.y - 20;
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+				
+				trace(36/60,24/96,36/60+24/96)
+			}
+
+			private function onEnterFrame(e:Event):void {
+				if (!this.isDown)
+					return;
+				
+				this.ball.x+=dx * Math.cos(this.line.rotation * Math.PI / 180);
+				this.ball.y+=dy * Math.sin(this.line.rotation * Math.PI / 180);
+
+				var ax:Number=9.8 * (Math.sin(this.line.rotation * Math.PI / 180) - this.ball.u * Math.cos(this.line.rotation * Math.PI / 180));
+				
+				this.dx+=ax;
+				this.dy+=ax;
+
+			}
+
+			protected function button2_clickHandler(event:MouseEvent):void {
+				this.isDown=!this.isDown;
+
+				this.ball.x=this.line.x;
+				this.ball.y=this.line.y - 20;
+
+//				var ax:Number=this.ball.m * 9.8 * Math.sin(this.line.rotation * Math.PI / 180) - this.ball.u * this.ball.m;
+				var ax:Number=9.8 * (Math.sin(this.line.rotation * Math.PI / 180) - this.ball.u * Math.cos(this.line.rotation * Math.PI / 180));
+
+//				this.dx=5; // + ax;
+//				this.dy=5; // + ax;
+				this.dx=0; // + ax;
+				this.dy=0; // + ax;
+				
+				
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="75"
+			  y="540"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+	<s:Button x="192"
+			  y="540"
+			  label="按钮"
+			  click="button2_clickHandler(event)"/>
+</s:WindowedApplication>

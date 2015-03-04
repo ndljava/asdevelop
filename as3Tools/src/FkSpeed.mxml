@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="800"
+					   height="600"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import com.ndl.cn.Fk;
+
+			import mx.events.FlexEvent;
+
+			private var fk:Fk;
+
+			private var dx:Number=20;
+			private var dy:Number=20;
+
+			private var mx:Number=20;
+			private var my:Number=20;
+
+			private var radio:Number=5;
+			private var angle:Number=85;
+
+			private var isdown:Boolean=false;
+
+		 
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				isdown=!isdown;
+			}
+
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+				fk=new Fk();
+				this.addElement(fk);
+
+				fk.x=100;
+				fk.y=250;
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+				this.addEventListener(MouseEvent.CLICK, onClick);
+			}
+
+			private function onClick(e:MouseEvent):void {
+				mx=e.localX;
+				my=e.localY
+
+			}
+
+			private function onEnterFrame(e:Event):void {
+
+				if (!this.isdown)
+					return;
+
+				
+				
+
+
+//				if (this.fk.x <= 0 || this.fk.x > this.stage.stageWidth - 30) {
+//					dx*=-1;
+//					dx=0;
+//
+//				} else if (this.fk.y <= 0 || this.fk.y > this.stage.stageHeight - 30) {
+//					dy=0;
+//				}
+
+
+				angle+=10;
+				//				trace(this.ball.x, this.ball.y, this.stage.stageWidth, this.stage.stageHeight)
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="86"
+			  y="539"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>

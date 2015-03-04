@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import com.ndl.cn.Ball;
+			import com.ndl.cn.Fk;
+
+			import mx.events.FlexEvent;
+
+			private var ball:Ball;
+			private var fk:Fk;
+
+			private var dx:Number=5;
+			private var dy:Number=5;
+
+			private var radio:Number=5;
+			private var angle:Number=85;
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				dx+=(dx < 0 ? -1 : 1);
+				dy+=(dy < 0 ? -1 : 1);
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+				ball=new Ball();
+				this.addElement(ball);
+
+				ball.x=100;
+				ball.y=50;
+
+
+				fk=new Fk();
+				this.addElement(fk);
+
+				fk.x=100;
+				fk.y=50;
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			}
+
+			private function onEnterFrame(e:Event):void {
+//				this.ball.x+=dx;
+//				this.ball.y+=dy;
+//
+//				if (this.ball.x <= 0 || this.ball.x > this.stage.stageWidth - 30) {
+//					dx*=-1;
+//				} else if (this.ball.y <= 0 || this.ball.y > this.stage.stageHeight - 30) {
+//					dy*=-1;
+//				}
+//				
+//				this.ball.rotation+=dx;
+//
+//				trace(this.ball.x, this.ball.y, this.stage.stageWidth, this.stage.stageHeight)
+
+				this.fk.x+=dx * Math.cos(angle * Math.PI / 180);
+				this.fk.y+=dy * Math.sin(angle * Math.PI / 180);
+
+				if (this.fk.x <= 0 || this.fk.x > this.stage.stageWidth - 30) {
+//					dx*=-1;
+					dx=0;
+
+				} else if (this.fk.y <= 0 || this.fk.y > this.stage.stageHeight - 30) {
+					dy=0;
+				}
+
+				this.fk.rotation+=dx;
+
+//				trace(this.ball.x, this.ball.y, this.stage.stageWidth, this.stage.stageHeight)
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="80"
+			  y="457"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>

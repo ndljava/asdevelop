@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="1024"
+					   height="768"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+	<fx:Style source="com/cn/css/defc.css"/>
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+
+			private var needTime:Number=1 * 1000;
+			private var a:Number=5;
+
+			private var start:UIComponent;
+			private var cir:UIComponent;
+			private var target:UIComponent;
+			private var gh:UIComponent;
+
+			private var leng:int=100;
+
+			private var vm:Number=110;
+
+			private var lx:Number=0;
+			private var ly:Number=0;
+			private var lz:Number=0;
+
+			private var cosX:Number=0;
+			private var cosY:Number=0;
+			private var cosZ:Number=0;
+
+			private var timer:Timer;
+
+			private var tx:Number=0;
+			private var ty:Number=768 / 2;
+
+			private var utime:int=0;
+
+			private var dx:Number=1;
+			private var dy:Number=1.2;
+
+			private var Alpha:Number=-90;
+			private var camrea:Number=0;
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+
+				var b:Number=leng * Math.cos((this.start.rotation * -1) * Math.PI / 180);
+
+				this.lx=b * Math.cos(this.start.rotationY * Math.PI / 180);
+				this.ly=leng * Math.cos((90 - this.start.rotation * -1) * Math.PI / 180);
+				this.lz=b * Math.sin(this.start.rotationY * Math.PI / 180);
+
+				this.cosX=lx / leng;
+				this.cosY=ly / leng;
+				this.cosZ=lz / leng;
+
+				utime=0;
+
+				this.cir.x=this.start.x+vm * this.cosX * (utime) + lx;
+				this.cir.y=(ty-this.ly) - (vm * this.cosY * (utime)) + (0.5 * 9.8 * Math.pow(utime, 2));
+				this.cir.z=vm * this.cosZ * (utime) + lz;
+
+				this.gh.graphics.moveTo(this.cir.x, this.cir.y);
+
+				this.timer.start();
+
+				trace(this.a, this.target.x - this.cir.x)
+			}
+
+			private function onEnterframe(e:Event):void {
+				this.graphics.lineTo(this.cir.x, this.cir.y);
+			}
+
+			private function onTimer(e:TimerEvent):void {
+
+				if (this.cir.x >= 1024)
+					return;
+
+				utime+=1;
+
+				this.cir.x=this.start.x+vm * this.cosX * (utime) + lx;
+				this.cir.y=(ty-this.ly) - (vm * this.cosY * (utime)) + (0.5 * 9.8 * Math.pow(utime, 2));
+				this.cir.z=vm * this.cosZ * (utime) + lz;
+
+//				trace(this.cir.x, this.cir.y, "|", this.vm, (this.cir.x - vm) / utime, (this.cir.y - vm) / utime);
+				this.gh.graphics.lineTo(this.cir.x, this.cir.y);
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				this.timer=new Timer(1);
+				this.timer.addEventListener(TimerEvent.TIMER, onTimer);
+
+				this.start=new UIComponent();
+				this.start.opaqueBackground=0x00ff00;
+				this.start.graphics.beginFill(0xff0000);
+				this.start.graphics.drawRect(0, 0, leng, 5);
+				this.start.graphics.endFill();
+
+				this.addElement(this.start);
+				this.start.y=ty;
+				this.start.x=this.width / 2;
+
+				this.start.rotation=this.silder.value;
+ 
+				trace(this.start.rotation, this.start.rotationX, this.start.rotationY, this.start.rotationZ, "====");
+
+				this.cir=new UIComponent();
+				this.cir.graphics.beginFill(0x00ff00);
+				this.cir.graphics.drawCircle(0, 0, 3);
+//				this.cir.graphics.drawRect(0, 0, 30,2);
+				this.cir.graphics.endFill();
+
+				this.addElement(this.cir);
+				this.cir.y=this.start.y;
+
+				this.target=new UIComponent();
+				this.target.graphics.beginFill(0xff0000);
+				this.target.graphics.drawCircle(0, 0, 3);
+				this.target.graphics.endFill();
+
+				this.addElement(this.target);
+				this.target.y=(this.height - this.target.height) / 2;
+				this.target.x=1024;
+
+				this.gh=new UIComponent();
+				this.addElement(this.gh);
+
+				this.gh.graphics.clear();
+				this.gh.graphics.lineStyle(1, 0xff0000);
+				this.gh.graphics.moveTo(this.cir.x, this.cir.y);
+				
+				trace("pl",Math.PI,90*Math.PI/180)
+			}
+
+			protected function button2_clickHandler(event:MouseEvent):void {
+				this.timer.stop();
+//				this.gh.graphics.clear();
+			}
+
+			protected function button3_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.start.rotationX++;
+				trace(this.start.rotation, this.start.rotationX, this.start.rotationY, this.start.rotationZ, "====");
+			}
+
+			protected function button4_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.start.rotationY++;
+				trace(this.start.rotation, this.start.rotationX, this.start.rotationY, this.start.rotationZ, "====");
+			}
+
+			protected function button5_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.start.rotationZ++;
+				trace(this.start.rotation, this.start.rotationX, this.start.rotationY, this.start.rotationZ, "====");
+			}
+
+			protected function button6_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.start.rotation++;
+			}
+
+			protected function hslider1_changeHandler(event:Event):void {
+				// TODO Auto-generated method stub
+				this.start.rotation=this.silder.value;
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="231"
+			  y="545"
+			  label="start "
+			  click="button1_clickHandler(event)"/>
+
+	<s:Button x="314"
+			  y="545"
+			  label="stop"
+			  click="button2_clickHandler(event)"/>
+	<s:Button x="586"
+			  y="544"
+			  label="x"
+			  click="button3_clickHandler(event)"/>
+	
+	<s:Button x="664"
+			  y="544"
+			  label="y"
+			  click="button4_clickHandler(event)"/>
+	
+	<s:Button x="742"
+			  y="544"
+			  label="z"
+			  click="button5_clickHandler(event)"/>
+	
+	<s:Button x="508"
+			  y="544"
+			  label="rotation"
+			  click="button6_clickHandler(event)"/>
+	<s:HSlider id="silder" x="461" y="614" width="510" change="hslider1_changeHandler(event)"
+			   liveDragging="true" maximum="360" minimum="0" stepSize="1" value="0"/>
+	<s:NumericStepper x="339" y="656" maximum="360" minimum="0" stepSize="1"/>
+ 
+</s:WindowedApplication>
