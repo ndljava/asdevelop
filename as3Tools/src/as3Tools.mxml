@@ -1,8 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:mx="library://ns.adobe.com/flex/mx">
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+
+			private var angle:Number=0;
+			private var sort:Boolean=false;
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			}
+
+			private function onEnterFrame(e:Event):void {
+
+
+//				if (angle >= 50)
+//					sort=true;
+//				else if (angle <= 0)
+//					sort=false;
+
+
+//				this.img.rotationY+=10;
+
+				this.img.rotation=Math.sin(angle)*45;
+
+//				if (!sort)
+					angle+=0.06;
+//				else
+//					angle--;
+
+//				var mat3:Matrix3D=this.img.transform.matrix3D;
+//				//				mat3.prependTranslation(this.img.x+this.img.width / 2,this.img.y+this.img.height / 2,0);
+//				mat3.prependRotation(1,Vector3D.Z_AXIS,new Vector3D(this.img.width / 2,this.img.height / 2));
+//				
+//				this.img.transform.matrix3D=mat3;
+
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				this.img.transformX=this.img.width / 2;
+				this.img.transformY=this.img.height;
+
+//				this.img.transform.matrix3D.prependTranslation(this.img.width / 2,this.img.height / 2,0);
+
+				var mat3:Matrix3D=this.img.transform.matrix3D;
+//				mat3.prependTranslation(this.img.x+this.img.width / 2,this.img.y+this.img.height / 2,0);
+				mat3.prependRotation(1, Vector3D.Z_AXIS, new Vector3D(this.img.x + this.img.width / 2, this.img.y + this.img.height / 2));
+
+				this.img.transform.matrix3D=mat3;
+			}
+		]]>
+	</fx:Script>
+
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>
+	<s:Button x="120"
+			  y="426"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+	<s:Image id="img"
+			 x="295"
+			 y="128"
+			 source="img/1.png"/>
 </s:WindowedApplication>
