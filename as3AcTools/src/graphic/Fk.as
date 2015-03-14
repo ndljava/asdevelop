@@ -1,7 +1,7 @@
-package com.ndl.cn {
-	import mx.core.UIComponent;
+package graphic {
+	import flash.display.Sprite;
 
-	public class Fk extends UIComponent {
+	public class Fk extends Sprite {
 		public function Fk() {
 			super();
 			this.init();

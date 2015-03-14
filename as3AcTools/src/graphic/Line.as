@@ -1,8 +1,8 @@
-package com.ndl.cn
+package graphic
 {
-	import mx.core.UIComponent;
+	import flash.display.Sprite;
 	
-	public class Line extends UIComponent
+	public class Line extends Sprite
 	{
 		public function Line()
 		{

@@ -1,4 +1,4 @@
-package com.ndl.cn {
+package graphic {
 	import flash.display.Sprite;
 
 	public class Ball extends Sprite {

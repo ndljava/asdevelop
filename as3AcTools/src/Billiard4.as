@@ -1,5 +1,5 @@
 package {
-	import com.ndl.cn.Ball;
+	import graphic.Ball;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
