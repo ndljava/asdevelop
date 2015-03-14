@@ -1,4 +1,4 @@
-package com.ndl.cn
+package graphic
 {
 	import mx.core.UIComponent;
 	

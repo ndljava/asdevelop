@@ -6,9 +6,9 @@
 
 	<fx:Script>
 		<![CDATA[
-			import com.ndl.cn.Ball;
-			import com.ndl.cn.Line;
-
+			import graphic.Ball;
+			import graphic.Line;
+			
 			import mx.events.FlexEvent;
 
 			private var line:Line;

@@ -5,7 +5,7 @@
 					   width="1024"
 					   height="768"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
-	<fx:Style source="com/cn/css/defc.css"/>
+	 
 
 	<fx:Script>
 		<![CDATA[

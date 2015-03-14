@@ -8,8 +8,8 @@
 
 	<fx:Script>
 		<![CDATA[
-			import com.ndl.cn.Fk;
-
+			import graphic.Fk;
+			
 			import mx.events.FlexEvent;
 
 			private var fk:Fk;
