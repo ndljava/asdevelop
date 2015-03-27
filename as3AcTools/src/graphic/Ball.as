@@ -9,6 +9,9 @@ package graphic {
 		public var vx:Number=0;
 		public var vy:Number=0;
 
+		public var ax:Number=0;
+		public var ay:Number=0;
+
 		public var radius:Number=0;
 
 		public function Ball(r:Number=20) {
