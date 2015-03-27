@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import graphic.ArcG;
+			import graphic.Ball;
+			import graphic.enum.ArcEnum;
+
+			import mx.events.FlexEvent;
+
+
+
+			private var arc:ArcG;
+			private var ball:Ball;
+
+			private var vy:Number=2;
+
+			private var wy:Number=0;
+
+			private var t:int=0;
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				this.arc=new ArcG(ArcEnum.TYPE_MIDD, 100, 100);
+
+				this.arc.transformX=102 / 2;
+				this.arc.transformY=102 / 2;
+
+				this.addElement(this.arc);
+
+				this.arc.x=200;
+				this.arc.y=200;
+
+				var c:Ball=new Ball(2);
+				this.addElement(c);
+
+				c.x=250;
+				c.y=250;
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+				ball=new Ball(20);
+				this.addElement(ball);
+
+				ball.x=200;
+				ball.y=450;
+
+//				trace(Math.atan2(50, 120), Math.atan2(50, 120 - 30), "|||", Math.atan2(50, 120 + 30))
+
+				trace(this.arc.x, this.arc.y);
+
+				var ag:Number=35 * Math.PI / 180;
+
+				trace(Math.sin(ag), Math.cos(ag), Math.tan(ag));
+				trace(Math.sin(ag) / Math.cos(ag), Math.tan(ag));
+				trace(Math.sin(Math.PI / 2), 90 * (Math.PI / 180), Math.cos(1), Math.tan(ag));
+
+				trace(Math.sqrt(Math.pow(251 - 220, 2) + Math.pow(251 - 470, 2)));
+			}
+
+			private function onEnterFrame(e:Event):void {
+
+//				this.arc.rotation+=0;
+//				return ;
+
+				t++;
+
+				var agg:Number=300 * Math.PI / 180;
+
+				ball.x+=(Math.cos(agg) * vy);
+				ball.y+=(Math.sin(agg) * vy);
+
+				if (wy > 0) {
+
+					trace("wy", wy, this.arc.mass * (9.8 * Math.pow(t, 2)) / 2, t, "===")
+
+					this.arc.rotation+=wy;
+
+					wy*=0.99;
+				} else {
+
+					var radio:Number=Math.sqrt(Math.pow(251 - ball.x + 10, 2) + Math.pow(251 - ball.y + 10, 2));
+					if (radio <= 62) {
+
+						wy=(vy * ball.mass) * 51 / this.arc.mass;
+						vy=0;
+
+					}
+
+				}
+
+//				trace("wy", wy, vy, t, radio)
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="182"
+			  y="511"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>

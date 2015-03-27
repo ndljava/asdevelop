@@ -29,6 +29,9 @@
     <application path="uspeed.mxml">
       <airExcludes/>
     </application>
+    <application path="StandRotate.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>

@@ -9,6 +9,8 @@ package graphic {
 
 		public var type:int=0;
 
+		public var mass:Number=8;
+		
 		public function ArcG(type:int=0, w:Number=20, h:Number=30) {
 			super();
 			this.w=w;
