@@ -23,7 +23,7 @@
 
 			private var radians:Number=30;
 
-			private var vm:Number=80;
+			private var vm:Number=550;
 
 			private var sw:Number=0;
 			private var sh:Number=0;
@@ -72,10 +72,11 @@
 
 				if (!this.isDown) {
 //					this.radBall.x=Math.random() * this.width;
-//					this.radBall.y=Math.random() * this.height;
+					this.radBall.y=Math.random() * this.height;
 					this.radBall.x=Math.random() * (this.width / 2) + (this.width / 2);
 //					this.radBall.y=Math.random() * (this.height / 2);
-					this.radBall.y=Math.random() * (vm * vm / (2 * 9.8)) + (this.height / 2 - (vm * vm / (2 * 9.8)));
+//					this.radBall.y=Math.random() * (vm * vm / (2 * 9.8)) + (this.height / 2 - (vm * vm / (2 * 9.8)));
+//					this.radBall.y=sh;
 				}
 
 			}
@@ -121,7 +122,7 @@
 
 			private function onEnterFrame(e:Event):void {
 
-				if (!this.isDown || this.ball.y > sh)
+				if (!this.isDown)
 					return;
 
 //				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
@@ -170,14 +171,21 @@
 
 				var l:Number=Math.sqrt(Math.pow(this.radBall.x - this.ball.x, 2) + Math.pow(this.radBall.y - this.ball.y, 2));
 
-				var _t:Number=l / vm;
+//				var l:Number=this.radBall.x - this.ball.x;
+
+				/**
+				 * 计算时间
+				 * 水平标准抛物线是:l / vm
+				 * 高或者低抛物线是:(l - (sh - this.radBall.y)) / vm
+				 */ 
+				var _t:Number=(l - (sh - this.radBall.y)) / vm;
 				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
 
 				var rata:Number=radian * 180 / Math.PI;
 				var h:Number=9.8 * (_t * _t) / 2;
 
 				//				if(radian>Math.PI/2)
-				this.angle=(Math.acos(l / _t / vm)) * 180 / Math.PI;
+//				this.angle=(Math.acos(l / _t / vm)) * 180 / Math.PI;
 //				this.angle=Math.atan(h / l) * 180 / Math.PI;
 
 //				this.radians=radian-Math.atan(h / l);
@@ -189,8 +197,12 @@
 				//				this.angle=(radian - Math.asin(2*vm*_t/(9.8))) * 180 / Math.PI;
 
 				//				this.angle-=radian * 180 / Math.PI;
+
+				/**
+				 * S=vt;
+				 *标准公式
+				 */
 				this.angle=Math.asin(l * 9.8 / (vm * vm)) / 2 * 180 / Math.PI;
-				//				this.angle+=radian;
 
 				this.line.rotation=rata;
 				this.rataline.rotation=rata - this.angle;
