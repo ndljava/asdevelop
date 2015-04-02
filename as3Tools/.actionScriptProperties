@@ -32,6 +32,9 @@
     <application path="StandRotate.mxml">
       <airExcludes/>
     </application>
+    <application path="Projectile.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>

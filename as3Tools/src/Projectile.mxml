@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="1024"
+					   height="768"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import graphic.Ball;
+			import graphic.Line;
+			
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+
+
+			private var ball:Ball;
+
+			private var t:Number=0;
+
+			private var angle:Number=180;
+
+			private var radians:Number=30;
+
+			private var vm:Number=80;
+
+			private var sw:Number=0;
+			private var sh:Number=0;
+
+			private var isDown:Boolean=false;
+
+			private var grp:UIComponent;
+
+			private var radBall:Ball;
+
+			private var line:Line;
+			private var rataline:Line;
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.angle=this.progress.value;
+
+				sw=this.ball.x=this.width - this.ball.width >> 1;
+				sh=this.ball.y=this.height - this.ball.height >> 1;
+
+				t=0;
+				this.grp.graphics.lineStyle(1, 0xff0000);
+				this.grp.graphics.moveTo(sw, sh);
+
+				if (!this.isDown) {
+					this.radBall.x=Math.random() * this.width;
+					this.radBall.y=Math.random() * this.height;
+
+				}
+
+				this.isDown=!this.isDown;
+			}
+
+
+			protected function button2_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.isDown=!this.isDown;
+//				this.angle=this.progress.value;
+
+				sw=this.ball.x=this.width - this.ball.width >> 1;
+				sh=this.ball.y=this.height - this.ball.height >> 1;
+
+				t=0;
+				this.grp.graphics.lineStyle(1, 0xff0000);
+				this.grp.graphics.moveTo(sw, sh);
+
+				if (!this.isDown) {
+//					this.radBall.x=Math.random() * this.width;
+//					this.radBall.y=Math.random() * this.height;
+					this.radBall.x=Math.random() * (this.width / 2) + (this.width / 2);
+//					this.radBall.y=Math.random() * (this.height / 2);
+					this.radBall.y=Math.random() * (vm * vm / (2 * 9.8)) + (this.height / 2 - (vm * vm / (2 * 9.8)));
+				}
+
+			}
+
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				this.grp=new UIComponent();
+				this.addElement(this.grp);
+
+				this.radBall=new Ball(5);
+				this.addElement(this.radBall);
+
+//				this.radBall.x=Math.random() * this.width;
+//				this.radBall.y=Math.random() * this.height;
+
+				this.ball=new Ball(5);
+				this.addElement(this.ball);
+
+				sw=this.ball.x=this.width - this.ball.width >> 1;
+				sh=this.ball.y=this.height - this.ball.height >> 1;
+
+				this.line=new Line();
+				this.addElement(this.line);
+
+				this.line.x=sw;
+				this.line.y=sh;
+
+				this.rataline=new Line();
+				this.addElement(this.rataline);
+
+				this.rataline.x=sw;
+				this.rataline.y=sh;
+
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+				this.grp.graphics.lineStyle(1, 0xff0000);
+				this.grp.graphics.moveTo(sw, sh);
+
+			}
+
+			private function onEnterFrame(e:Event):void {
+
+				if (!this.isDown)
+					return;
+
+//				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
+//				var radian:Number=Math.atan2(this.radBall.x - this.ball.x, this.radBall.y - this.ball.y);
+
+//				var l:Number=Math.sqrt(Math.pow(this.radBall.x - this.ball.x, 2) + Math.pow(this.radBall.y - this.ball.y, 2));
+
+//				var _t:Number=2*vm * Math.sin(radian) / 9.8;
+//				var _t:int=Math.ceil(l / vm);
+
+//				radian=Math.acos(l / _t / vm)
+//				radian=Math.asin((vm * 2 * t) / (9.8));
+//				trace((vm * vm * l) / (9.8), "==", Math.asin((vm * vm * l) / (9.8)))
+//				radian=Math.asin(l * 9.8 / (vm * vm)) / 2;
+//				radian=Math.asin(9.8 * (_t * _t) / 2 /( vm * _t));
+//				radian=Math.atan(9.8 *_t  / (2 * vm));
+//				radian=Math.atan((_t * _t) * 9.8 / 2 / l);
+				var radian:Number=(angle) * Math.PI / 180;
+
+//				trace(l, _t, vm, radian, Math.acos(1), radian * 180 / Math.PI)
+//				trace(l, _t, vm, Math.asin((vm * vm * l) / (9.8)), radian, Math.acos(1), radian * 180 / Math.PI)
+
+				var dx:Number=sw + vm * Math.cos(radian) * t;
+				var dy:Number=sh - vm * Math.sin(radian) * t + 9.8 * (t * t) / 2;
+
+//				if (int(l) == 0)
+//					trace(t, _t)
+//
+				trace(angle, "pos")
+
+				this.ball.x=dx;
+				this.ball.y=dy;
+
+				this.grp.graphics.lineTo(dx, dy);
+
+				t+=1;
+			}
+
+			protected function progress_changeHandler(event:Event):void {
+				// TODO Auto-generated method stub
+				this.line.rotation=this.progress.value;
+			}
+
+			protected function button3_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+				var l:Number=Math.sqrt(Math.pow(this.radBall.x - this.ball.x, 2) + Math.pow(this.radBall.y - this.ball.y, 2));
+
+				var _t:int=Math.ceil(l / vm);
+				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
+
+				var rata:Number=radian * 180 / Math.PI;
+				var h:Number=9.8 * (_t * _t) / 2;
+
+				//				if(radian>Math.PI/2)
+				this.angle=(Math.acos(l / _t / vm)) * 180 / Math.PI;
+				this.angle=Math.atan(h / l) * 180 / Math.PI;
+
+				this.radians=radian-Math.atan(h / l);
+				this.radians*=-1;
+				//				this.angle=(radian + Math.asin(Math.sqrt(vm * vm / (2 * 9.8 * h)))) * 180 / Math.PI;
+				//				this.angle=90-(radian + Math.asin(l * 9.8 / (vm * vm) / 2)) * 180 / Math.PI;
+				//				this.angle=90-(radian + Math.asin(l/vm/_t)) * 180 / Math.PI;
+				//				this.angle=(radian - Math.asin(2*vm*_t/(9.8))) * 180 / Math.PI;
+
+				//				this.angle-=radian * 180 / Math.PI;
+				//				this.angle=Math.asin((vm) * _t / 9.8) * 180 / Math.PI;
+				//				this.angle+=radian;
+
+				this.line.rotation=rata;
+				this.rataline.rotation=rata- this.angle;
+
+				trace("11", this.angle, _t, radian,rata, h, "===", vm * vm / (2 * 9.8))
+				this.angle=(rata- this.angle)*-1;
+				trace("22", this.angle, _t)
+
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+
+	<s:Button x="478"
+			  y="534"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+
+	<s:Button x="556"
+			  y="534"
+			  label="按钮"
+			  click="button2_clickHandler(event)"/>
+
+	<s:HSlider id="progress"
+			   x="112"
+			   y="544"
+			   width="323"
+			   change="progress_changeHandler(event)"
+			   maximum="360"
+			   minimum="0"
+			   stepSize="1"
+			   value="30"/>
+	
+	<s:Button x="658"
+			  y="534"
+			  label="按钮"
+			  click="button3_clickHandler(event)"/>
+</s:WindowedApplication>

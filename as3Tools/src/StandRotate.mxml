@@ -47,7 +47,7 @@
 				c.x=250;
 				c.y=250;
 
-				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+//				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 
 				ball=new Ball(20);
 				this.addElement(ball);
@@ -62,10 +62,15 @@
 				var ag:Number=35 * Math.PI / 180;
 
 				trace(Math.sin(ag), Math.cos(ag), Math.tan(ag));
-				trace(Math.sin(ag) / Math.cos(ag), Math.tan(ag));
+				trace(2 * Math.sin(ag) * Math.cos(ag), Math.sin(ag) * Math.sin(ag) + Math.cos(ag) * Math.cos(ag), Math.sin(2 * ag))
+				trace(Math.sin(ag) / Math.cos(ag), Math.sin(ag) - Math.cos(ag), Math.tan(ag));
 				trace(Math.sin(Math.PI / 2), 90 * (Math.PI / 180), Math.cos(1), Math.tan(ag));
 
 				trace(Math.sqrt(Math.pow(251 - 220, 2) + Math.pow(251 - 470, 2)));
+				trace("===",(225 * Math.PI / 180) * 180 / Math.PI);
+				trace("===",(270 * Math.PI / 180) * 180 / Math.PI);
+				trace("===",(315 * Math.PI / 180) * 180 / Math.PI);
+				trace("===",(358 * Math.PI / 180) * 180 / Math.PI);
 			}
 
 			private function onEnterFrame(e:Event):void {
