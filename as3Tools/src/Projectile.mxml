@@ -10,7 +10,7 @@
 		<![CDATA[
 			import graphic.Ball;
 			import graphic.Line;
-			
+
 			import mx.core.UIComponent;
 			import mx.events.FlexEvent;
 
@@ -121,7 +121,7 @@
 
 			private function onEnterFrame(e:Event):void {
 
-				if (!this.isDown)
+				if (!this.isDown || this.ball.y > sh)
 					return;
 
 //				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
@@ -157,7 +157,7 @@
 
 				this.grp.graphics.lineTo(dx, dy);
 
-				t+=1;
+				t+=0.01;
 			}
 
 			protected function progress_changeHandler(event:Event):void {
@@ -170,7 +170,7 @@
 
 				var l:Number=Math.sqrt(Math.pow(this.radBall.x - this.ball.x, 2) + Math.pow(this.radBall.y - this.ball.y, 2));
 
-				var _t:int=Math.ceil(l / vm);
+				var _t:Number=l / vm;
 				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
 
 				var rata:Number=radian * 180 / Math.PI;
@@ -178,24 +178,25 @@
 
 				//				if(radian>Math.PI/2)
 				this.angle=(Math.acos(l / _t / vm)) * 180 / Math.PI;
-				this.angle=Math.atan(h / l) * 180 / Math.PI;
+//				this.angle=Math.atan(h / l) * 180 / Math.PI;
 
-				this.radians=radian-Math.atan(h / l);
-				this.radians*=-1;
+//				this.radians=radian-Math.atan(h / l);
+//				this.radians*=-1;
+
 				//				this.angle=(radian + Math.asin(Math.sqrt(vm * vm / (2 * 9.8 * h)))) * 180 / Math.PI;
 				//				this.angle=90-(radian + Math.asin(l * 9.8 / (vm * vm) / 2)) * 180 / Math.PI;
 				//				this.angle=90-(radian + Math.asin(l/vm/_t)) * 180 / Math.PI;
 				//				this.angle=(radian - Math.asin(2*vm*_t/(9.8))) * 180 / Math.PI;
 
 				//				this.angle-=radian * 180 / Math.PI;
-				//				this.angle=Math.asin((vm) * _t / 9.8) * 180 / Math.PI;
+				this.angle=Math.asin(l * 9.8 / (vm * vm)) / 2 * 180 / Math.PI;
 				//				this.angle+=radian;
 
 				this.line.rotation=rata;
-				this.rataline.rotation=rata- this.angle;
+				this.rataline.rotation=rata - this.angle;
 
-				trace("11", this.angle, _t, radian,rata, h, "===", vm * vm / (2 * 9.8))
-				this.angle=(rata- this.angle)*-1;
+				trace("11", this.angle, _t, radian, rata, h, "===", vm * vm / (2 * 9.8))
+				this.angle=(rata - this.angle) * -1;
 				trace("22", this.angle, _t)
 
 			}
@@ -225,7 +226,7 @@
 			   minimum="0"
 			   stepSize="1"
 			   value="30"/>
-	
+
 	<s:Button x="658"
 			  y="534"
 			  label="按钮"
