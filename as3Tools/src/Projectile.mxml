@@ -18,12 +18,13 @@
 			private var ball:Ball;
 
 			private var t:Number=0;
+			private var _t:Number=0;
 
 			private var angle:Number=180;
 
 			private var radians:Number=30;
 
-			private var vm:Number=550;
+			private var vm:Number=100;
 
 			private var sw:Number=0;
 			private var sh:Number=0;
@@ -72,9 +73,9 @@
 
 				if (!this.isDown) {
 //					this.radBall.x=Math.random() * this.width;
-					this.radBall.y=Math.random() * this.height;
+//					this.radBall.y=Math.random() * this.height;
 					this.radBall.x=Math.random() * (this.width / 2) + (this.width / 2);
-//					this.radBall.y=Math.random() * (this.height / 2);
+					this.radBall.y=Math.random() * (this.height / 2);
 //					this.radBall.y=Math.random() * (vm * vm / (2 * 9.8)) + (this.height / 2 - (vm * vm / (2 * 9.8)));
 //					this.radBall.y=sh;
 				}
@@ -140,6 +141,7 @@
 //				radian=Math.asin(9.8 * (_t * _t) / 2 /( vm * _t));
 //				radian=Math.atan(9.8 *_t  / (2 * vm));
 //				radian=Math.atan((_t * _t) * 9.8 / 2 / l);
+
 				var radian:Number=(angle) * Math.PI / 180;
 
 //				trace(l, _t, vm, radian, Math.acos(1), radian * 180 / Math.PI)
@@ -150,7 +152,7 @@
 
 //				if (int(l) == 0)
 //					trace(t, _t)
-//
+
 				trace(angle, "pos")
 
 				this.ball.x=dx;
@@ -158,7 +160,8 @@
 
 				this.grp.graphics.lineTo(dx, dy);
 
-				t+=0.01;
+				t+=0.001;
+//				t+=1;
 			}
 
 			protected function progress_changeHandler(event:Event):void {
@@ -169,46 +172,67 @@
 			protected function button3_clickHandler(event:MouseEvent):void {
 				// TODO Auto-generated method stub
 
-				var l:Number=Math.sqrt(Math.pow(this.radBall.x - this.ball.x, 2) + Math.pow(this.radBall.y - this.ball.y, 2));
+//				var l:Number=Math.sqrt(Math.pow(this.radBall.x - this.ball.x, 2) + Math.pow(this.radBall.y - this.ball.y, 2));
 
-//				var l:Number=this.radBall.x - this.ball.x;
+				var l:Number=this.radBall.x - this.ball.x;
 
+				var _h:Number=(this.ball.y - this.radBall.y);
+				_h=(_h < 0 ? _h * -1 : _h);
+				
 				/**
 				 * 计算时间
 				 * 水平标准抛物线是:l / vm
 				 * 高或者低抛物线是:(l - (sh - this.radBall.y)) / vm
-				 */ 
-				var _t:Number=(l - (sh - this.radBall.y)) / vm;
+				 */
+				_t=l / vm;
+
 				var radian:Number=Math.atan2(this.radBall.y - this.ball.y, this.radBall.x - this.ball.x);
 
 				var rata:Number=radian * 180 / Math.PI;
 				var h:Number=9.8 * (_t * _t) / 2;
 
-				//				if(radian>Math.PI/2)
+//				if (this.radBall.y < sh)
+//					_t=_t + Math.sqrt(2 * (h - sh - this.radBall.y) / 9.8);
+
+//				if(radian>Math.PI/2)
 //				this.angle=(Math.acos(l / _t / vm)) * 180 / Math.PI;
 //				this.angle=Math.atan(h / l) * 180 / Math.PI;
 
 //				this.radians=radian-Math.atan(h / l);
 //				this.radians*=-1;
 
-				//				this.angle=(radian + Math.asin(Math.sqrt(vm * vm / (2 * 9.8 * h)))) * 180 / Math.PI;
-				//				this.angle=90-(radian + Math.asin(l * 9.8 / (vm * vm) / 2)) * 180 / Math.PI;
-				//				this.angle=90-(radian + Math.asin(l/vm/_t)) * 180 / Math.PI;
-				//				this.angle=(radian - Math.asin(2*vm*_t/(9.8))) * 180 / Math.PI;
+//				this.angle=(radian + Math.asin(Math.sqrt(vm * vm / (2 * 9.8 * h)))) * 180 / Math.PI;
+//				this.angle=90-(radian + Math.asin(l * 9.8 / (vm * vm) / 2)) * 180 / Math.PI;
+//				this.angle=90-(radian + Math.asin(l/vm/_t)) * 180 / Math.PI;
+//				this.angle=(radian - Math.asin(2*vm*_t/(9.8))) * 180 / Math.PI;
 
-				//				this.angle-=radian * 180 / Math.PI;
+//				this.angle-=radian * 180 / Math.PI;
+
+//				var vmY:Number=vm * Math.sin(Math.atan((this.radBall.y - this.ball.y) / (this.radBall.x - this.ball.x))) / 9.8;
+//				var vmY:Number=Math.sqrt(2 * (h - (this.ball.y - this.radBall.y)) / 9.8);
+				var vmY:Number=Math.sqrt((h - (this.ball.y - this.radBall.y)));
 
 				/**
 				 * S=vt;
-				 *标准公式
+				 * 标准公式,用射程直接转换
 				 */
-				this.angle=Math.asin(l * 9.8 / (vm * vm)) / 2 * 180 / Math.PI;
+				this.angle=Math.asin((this.radBall.x - this.ball.x) * 9.8 / (vm * vm)) / 2 * 180 / Math.PI;
+//				this.angle=Math.acos((this.radBall.x - this.ball.x) / vm) * 180 / Math.PI;
+
+				/**
+				 * h=(v0-sin)^2/2g
+				 * 高的公式
+				 */
+				this.angle=(Math.asin(Math.sqrt(_h * (9.8 * 2)) / vm) * 180 / Math.PI);
+//				this.angle=Math.asin(l * 9.8 / (vmY * vmY)) / 2- * 180 / Math.PI;
 
 				this.line.rotation=rata;
-				this.rataline.rotation=rata - this.angle;
+//				this.rataline.rotation=rata - this.angle;
+				this.rataline.rotation=this.angle * -1;
 
 				trace("11", this.angle, _t, radian, rata, h, "===", vm * vm / (2 * 9.8))
-				this.angle=(rata - this.angle) * -1;
+//				this.angle=(radian- this.angle) * -1;
+				this.angle=this.angle;
 				trace("22", this.angle, _t)
 
 			}

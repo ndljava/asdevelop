@@ -9,7 +9,7 @@
 			import graphic.ArcG;
 			import graphic.Ball;
 			import graphic.enum.ArcEnum;
-
+			
 			import mx.events.FlexEvent;
 
 
@@ -71,6 +71,8 @@
 				trace("===",(270 * Math.PI / 180) * 180 / Math.PI);
 				trace("===",(315 * Math.PI / 180) * 180 / Math.PI);
 				trace("===",(358 * Math.PI / 180) * 180 / Math.PI);
+				trace("=========================================================");
+				trace("===",Math.atan2(0,20),Math.sin(Math.atan2(0,230)));
 			}
 
 			private function onEnterFrame(e:Event):void {

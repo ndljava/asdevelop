@@ -35,6 +35,9 @@
     <application path="Projectile.mxml">
       <airExcludes/>
     </application>
+    <application path="ProjectPinPao.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>
