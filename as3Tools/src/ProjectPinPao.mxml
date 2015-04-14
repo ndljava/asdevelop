@@ -111,6 +111,7 @@
 			  y="650"
 			  label="按钮"
 			  click="button1_clickHandler(event)"/>
+	
 	<s:Button x="310"
 			  y="650"
 			  label="按钮"
