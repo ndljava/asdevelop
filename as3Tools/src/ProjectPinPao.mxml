@@ -37,6 +37,9 @@
 				t=0;
 			}
 
+			/**
+			 * 平抛
+			 */ 
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
 				// TODO Auto-generated method stub
 				this.ball1=new Ball(5);

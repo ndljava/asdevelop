@@ -8,7 +8,7 @@
 		<![CDATA[
 			import graphic.Ball;
 			import graphic.Line;
-			
+
 			import mx.events.FlexEvent;
 
 			private var line:Line;
@@ -39,10 +39,10 @@
 				this.line.x=50;
 				this.line.y=300;
 
-				trace(this.getBounds(this.line),"\\\\\\\\1111",this.getRect(this.line))
+				trace(this.getBounds(this.line), "\\\\\\\\1111", this.getRect(this.line))
 				this.line.rotation=30;
-				trace(this.getBounds(this.line),"\\\\\\\\2222",this.getRect(this.line))
-				
+				trace(this.getBounds(this.line), "\\\\\\\\2222", this.getRect(this.line))
+
 				this.ball=new Ball();
 				this.addElement(this.ball);
 
@@ -50,19 +50,19 @@
 				this.ball.y=this.line.y - 20;
 
 				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-				
-				trace(36/60,24/96,36/60+24/96)
+
+				trace(36 / 60, 24 / 96, 36 / 60 + 24 / 96)
 			}
 
 			private function onEnterFrame(e:Event):void {
 				if (!this.isDown)
 					return;
-				
+
 				this.ball.x+=dx * Math.cos(this.line.rotation * Math.PI / 180);
 				this.ball.y+=dy * Math.sin(this.line.rotation * Math.PI / 180);
 
 				var ax:Number=9.8 * (Math.sin(this.line.rotation * Math.PI / 180) - this.ball.u * Math.cos(this.line.rotation * Math.PI / 180));
-				
+
 				this.dx+=ax;
 				this.dy+=ax;
 
@@ -81,8 +81,6 @@
 //				this.dy=5; // + ax;
 				this.dx=0; // + ax;
 				this.dy=0; // + ax;
-				
-				
 			}
 		]]>
 	</fx:Script>
@@ -94,8 +92,10 @@
 			  y="540"
 			  label="按钮"
 			  click="button1_clickHandler(event)"/>
+	
 	<s:Button x="192"
 			  y="540"
 			  label="按钮"
 			  click="button2_clickHandler(event)"/>
+	
 </s:WindowedApplication>

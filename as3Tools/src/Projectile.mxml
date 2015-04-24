@@ -82,7 +82,9 @@
 
 			}
 
-
+			/**
+			 * 斜抛
+			 */
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
 				// TODO Auto-generated method stub
 
@@ -209,7 +211,7 @@
 //				this.angle-=radian * 180 / Math.PI;
 
 //				var vmY:Number=vm * Math.sin(Math.atan((this.radBall.y - this.ball.y) / (this.radBall.x - this.ball.x))) / 9.8;
-				var vmY:Number=Math.sqrt(2 * (_h - (this.ball.y - this.radBall.y)) / 9.8);
+//				var vmY:Number=Math.sqrt(2 * (_h - (this.ball.y - this.radBall.y)) / 9.8);
 //				var vmY:Number=Math.sqrt((h - (this.ball.y - this.radBall.y)));
 
 				/**
@@ -220,14 +222,22 @@
 //				this.angle=Math.asin((l - vmY) * 9.8 / (vm * vm) * 2) / 2 * 180 / Math.PI;
 //				this.angle=(Math.asin((this.radBall.x - this.ball.x) * 9.8 / (vm * vm)) - radian) / 2 * 180 / Math.PI;
 //				this.angle=(Math.asin((this.radBall.x - this.ball.x) * 9.8 * Math.sin(Math.PI / 2 + radian) / (vm * vm))) / 2 * 180 / Math.PI;
-				
-				
+
+
 				/**
-				 * 准确率较高的 注意: 用到垂直重力系数:Math.sin(Math.PI / 2 + radian) 
-				 */ 
-				this.angle=(Math.asin((l) * 9.8 * Math.sin(Math.PI / 2 + radian) / (vm * vm))) / 2 * 180 / Math.PI;
+				 * 准确率较高的 注意: 用到垂直重力系数:Math.sin(Math.PI / 2 + radian)
+				 */
+//				this.angle=(Math.asin((l) * 9.8 * Math.sin(Math.PI / 2 + Math.atan((this.ball.y - this.radBall.y) / (this.radBall.x - this.ball.x))) / (vm * vm))) / 2 * 180 / Math.PI;
 //				this.angle=(Math.asin((l) * 9.8* / (vm * vm))) / 2 * 180 / Math.PI;
 //				this.angle=Math.acos((this.radBall.x - this.ball.x) / vm) * 180 / Math.PI;
+
+				var vy:Number=vm * vm;
+				var vy2:Number=vy * vy;
+
+				var a:Number=(vy - Math.sqrt(vy2 + 9.8 * (9.8 * l * l - 2 * (this.ball.y - this.radBall.y) * vy))) / (9.8 * l);
+
+				this.angle=a* 180 / Math.PI;
+//				this.angle=a * Math.atan((this.ball.y - this.radBall.y) / (this.radBall.x - this.ball.x)) * 180 / Math.PI;
 
 				/**
 				 * h=(v0-sin)^2/2g
