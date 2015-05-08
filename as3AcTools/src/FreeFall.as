@@ -11,6 +11,8 @@ package {
 
 		private var ball:Ball;
 		private var vm:Number=0;
+		private var num:Number=0;
+
 		private var h:Number=0;
 		private var va:Number=5;
 
@@ -37,6 +39,8 @@ package {
 
 		private function onEnterFrame(e:Event):void {
 
+			this.updateLT();
+			return;
 //			h*=0.9;
 
 			this.ball.vy+=0.5 * (t);
@@ -65,7 +69,7 @@ package {
 			return;
 
 //			this.ball.vy+=va;
-			
+
 			this.ball.vy+=5;
 
 			this.ball.y+=this.ball.vy;
@@ -85,6 +89,19 @@ package {
 
 		}
 
+
+		private function updateLT():void {
+
+			this.ball.y=vm * t + 9.8 * t * t / 2;
+			trace(this.ball.y);
+
+			if (this.ball.y > 600) {
+				num++;
+				vm=vm * num;
+			}
+
+			t++;
+		}
 
 	}
 }
