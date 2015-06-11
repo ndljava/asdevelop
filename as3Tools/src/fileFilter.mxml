@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.utils.ArrayUtil;
+			private var count:int=0;
+			private var countArr:Array=[]
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+				var f:File=new File("E:/flash/pro6/DragonOnline/src/com")
+//				var f:File=new File("E:/flash/pro6/DragonOnlineData/src/com")
+				this.readFiles(f.getDirectoryListing());
+
+				trace("count", count);
+				trace("count");
+//				trace(countArr);
+
+//				var lk:Array=countArr.filter(function(item:*,i:int,arr:Array):Boolean{
+//					
+//					if(item)
+//				});
+//				
+//				countArr.sort(Array.DESCENDING);
+
+//				trace("222",countArr.length);
+
+				var tmpArr:Array=[];
+				for (var i:int=0; i < countArr.length; i++) {
+//					trace(countArr[i]);
+					if (tmpArr.indexOf(countArr[i]) == -1) {
+						tmpArr.push(countArr[i]);
+					} else {
+						trace("dup", countArr[i])
+					}
+
+				}
+
+				for (i=0; i < tmpArr.length; i++) {
+
+					trace(tmpArr[i].replace(/\"*/g, ""));
+				}
+
+				trace("222", tmpArr.length, countArr.length);
+
+				countArr.length=0;
+
+				f=new File("E:/flash/pro6/DragonOnlineData/src/com")
+				this.readFiles(f.getDirectoryListing());
+
+				for (i=0; i < countArr.length; i++) {
+					if (tmpArr.indexOf(countArr[i]) == -1) {
+						tmpArr.push(countArr[i]);
+					} else {
+						trace("dup", countArr[i])
+					}
+
+				}
+
+				for (i=0; i < tmpArr.length; i++) {
+					
+					trace(tmpArr[i].replace(/\"*/g, ""));
+				}
+				
+				trace("ccc222", tmpArr.length, countArr.length);
+			}
+
+			private function readFiles(fa:Array):void {
+
+				var f:File;
+				for (var i:int=0; i < fa.length; i++) {
+					f=fa[i] as File;
+					if (!f.isDirectory) {
+
+						if (f.name.match(/\.as$/) != null)
+							this.readFile(f);
+					} else {
+						this.readFiles(f.getDirectoryListing());
+					}
+				}
+
+			}
+
+			private function readFile(f:File):void {
+
+				var fs:FileStream=new FileStream();
+				fs.open(f, FileMode.READ);
+				fs.position=0;
+
+				var ctx:String=fs.readMultiByte(fs.bytesAvailable, "utf-8")
+
+				fs.close();
+
+//				f.addEventListener(Event.COMPLETE,function(e:Event):void{
+
+//				var by:ByteArray=f.data
+//				by.position=0;
+
+//				trace(ctx);
+
+				var carr:Array=ctx.match(/".*?[\u0391-\uFFE5]+.*?"/g);
+//				for(var i:int=0;i<carr.length;i++){
+//					trace()
+//				}
+
+				count+=carr.length;
+
+				trace(f.nativePath);
+				trace(carr);
+
+				countArr=countArr.concat(carr);
+
+
+//				});
+//				
+//				f.
+
+
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="96"
+			  y="489"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>

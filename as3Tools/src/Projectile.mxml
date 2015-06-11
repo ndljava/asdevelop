@@ -227,7 +227,7 @@
 				/**
 				 * 准确率较高的 注意: 用到垂直重力系数:Math.sin(Math.PI / 2 + radian)
 				 */
-//				this.angle=(Math.asin((l) * 9.8 * Math.sin(Math.PI / 2 + Math.atan((this.ball.y - this.radBall.y) / (this.radBall.x - this.ball.x))) / (vm * vm))) / 2 * 180 / Math.PI;
+				this.angle=(Math.asin((l) * 9.8 * Math.sin(Math.PI / 2 + Math.atan((this.ball.y - this.radBall.y) / (this.radBall.x - this.ball.x))) / (vm * vm))) / 2 * 180 / Math.PI;
 //				this.angle=(Math.asin((l) * 9.8* / (vm * vm))) / 2 * 180 / Math.PI;
 //				this.angle=Math.acos((this.radBall.x - this.ball.x) / vm) * 180 / Math.PI;
 
@@ -236,7 +236,7 @@
 
 				var a:Number=(vy - Math.sqrt(vy2 + 9.8 * (9.8 * l * l - 2 * (this.ball.y - this.radBall.y) * vy))) / (9.8 * l);
 
-				this.angle=a* 180 / Math.PI;
+//				this.angle=a* 180 / Math.PI;
 //				this.angle=a * Math.atan((this.ball.y - this.radBall.y) / (this.radBall.x - this.ball.x)) * 180 / Math.PI;
 
 				/**

@@ -7,6 +7,7 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
+			import mx.events.MoveEvent;
 
 
 			private var angle:Number=0;
@@ -34,16 +35,16 @@
 //				this.img.rotation=Math.sin(angle)*45;
 
 				this.img.rotationY+=5;
-				
+
 //				if (!sort)
-					angle+=0.06;
+				angle+=0.06;
 //				else
 //					angle--;
 
 //				var mat3:Matrix3D=this.img.transform.matrix3D;
-//				//				mat3.prependTranslation(this.img.x+this.img.width / 2,this.img.y+this.img.height / 2,0);
-//				mat3.prependRotation(1,Vector3D.Z_AXIS,new Vector3D(this.img.width / 2,this.img.height / 2));
-//				
+//				mat3.prependTranslation(this.img.width / 2,  this.img.height / 2, 0);
+//				mat3.prependRotation(10, Vector3D.Z_AXIS, new Vector3D(this.img.width / 2, this.img.height / 2));
+//				mat3.prependScale(1,0.5,1);
 //				this.img.transform.matrix3D=mat3;
 
 			}
@@ -56,19 +57,32 @@
 
 //				this.img.transform.matrix3D.prependTranslation(this.img.width / 2,this.img.height / 2,0);
 
-//				var mat3:Matrix3D=this.img.transform.matrix3D;
-//				mat3.prependTranslation(this.img.x+this.img.width / 2,this.img.y+this.img.height / 2,0);
-//				mat3.prependRotation(1, Vector3D.Z_AXIS, new Vector3D(this.img.x + this.img.width / 2, this.img.y + this.img.height / 2));
+				var mat3:Matrix3D=this.img.transform.matrix3D;
+				mat3.prependTranslation(this.img.width / 2, this.img.height / 2, 0);
+//				mat3.prependRotation(1, Vector3D.Z_AXIS, new Vector3D(this.img.width / 2, this.img.height / 2));
+//				mat3.prependScale(0.8,1,0.5);
+				mat3.pointAt(new Vector3D(this.img.x,this.img.y,0));
+				this.img.transform.matrix3D=mat3;
+//				
+//				trace(this.img.transform.perspectiveProjection);
+//				var pp:PerspectiveProjection=new PerspectiveProjection();
+//				pp.fieldOfView=2;
+//				pp.focalLength=1000*(1000/this.img.width);
+//				pp.projectionCenter=new Point(this.img.width / 2, this.img.height / 2);
+//				this.img.transform.perspectiveProjection=pp;
 
-//				this.img.transform.matrix3D=mat3;
-				
-				trace(this.img.transform.perspectiveProjection);
-				var pp:PerspectiveProjection=new PerspectiveProjection();
-				pp.fieldOfView=60;
-				pp.focalLength=1000*(1000/this.img.width);
-				pp.projectionCenter=new Point(this.img.width / 2, this.img.height / 2);
-				this.img.transform.perspectiveProjection=pp;
-				
+//				this.img.transform.matrix=new Matrix(0.5,-(Math.PI/2/2),0,1);
+			}
+
+			protected function img_activateHandler(event:Event):void {
+				// TODO Auto-generated method stub
+
+			}
+
+			protected function img_moveHandler(event:MoveEvent):void {
+				// TODO Auto-generated method stub
+				trace("rrrr")
+
 			}
 		]]>
 	</fx:Script>
@@ -83,5 +97,6 @@
 	<s:Image id="img"
 			 x="295"
 			 y="128"
+			 move="img_moveHandler(event)"
 			 source="img/1.png"/>
 </s:WindowedApplication>

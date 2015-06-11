@@ -38,6 +38,12 @@
     <application path="ProjectPinPao.mxml">
       <airExcludes/>
     </application>
+    <application path="PushBox.mxml">
+      <airExcludes/>
+    </application>
+    <application path="fileFilter.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>
