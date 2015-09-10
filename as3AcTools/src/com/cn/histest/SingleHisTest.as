@@ -95,6 +95,7 @@ package com.cn.histest {
 				ball.vy*=-1;
 			}
 
+			
 		}
 
 		private function getShouheng(m1:Number, v1:Number, m2:Number, v2:Number):Number {

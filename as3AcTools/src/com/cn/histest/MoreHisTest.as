@@ -61,7 +61,7 @@ package com.cn.histest {
 
 					dist=Math.sqrt(Math.pow(ball1.x - ball2.x, 2) + Math.pow(ball1.y - ball2.y, 2));
 
-					if (dist <= ball1.radius * 2) {
+					if (dist < ball1.radius * 2) {
 
 						var vx1:Number=this.getShouheng(ball1.mass, ball1.vx, ball2.mass, ball2.vx);
 						var vy1:Number=this.getShouheng(ball1.mass, ball1.vy, ball2.mass, ball2.vy);
