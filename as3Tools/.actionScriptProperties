@@ -44,6 +44,9 @@
     <application path="fileFilter.mxml">
       <airExcludes/>
     </application>
+    <application path="LineOrCurve.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>

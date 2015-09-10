@@ -73,6 +73,11 @@
 				trace("===", (358 * Math.PI / 180) * 180 / Math.PI);
 				trace("=========================================================");
 				trace("===", Math.atan2(0, 20), Math.sin(Math.atan2(0, 230)));
+
+				trace("===============================================================");
+				trace(4 * 3, 4 / 5, Math.asin(4 / 5));
+				trace(Math.asin(4 / 5) * 180 / Math.PI, 4 * 5 * Math.cos(Math.asin(4 / 5)), 3 * 5 * (4 / 5));
+
 			}
 
 			private function onEnterFrame(e:Event):void {

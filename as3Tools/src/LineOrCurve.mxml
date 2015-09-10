@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+
+
+			private var uiCanvas:UIComponent;
+			
+			private var ui1Canvas:UIComponent;
+			private var ui2Canvas:UIComponent;
+			private var ui3Canvas:UIComponent;
+
+			
+			
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				this.uiCanvas.graphics.clear();
+				this.uiCanvas.graphics.lineStyle(0, 0xff0000);
+				this.uiCanvas.graphics.moveTo(100, 100);
+				this.uiCanvas.graphics.lineTo(500, 600);
+
+				this.uiCanvas.graphics.lineStyle(0, 0x00ff00);
+				this.uiCanvas.graphics.moveTo(0, 100);
+//				this.uiCanvas.graphics.lineTo(0,100);
+				this.uiCanvas.graphics.curveTo(250, -100, 500, 100);
+
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				this.uiCanvas=new UIComponent();
+				this.addElement(this.uiCanvas);
+
+//				this.uiCanvas.graphics.clear();
+//				this.uiCanvas.graphics.lineStyle(0,0xff0000);
+//				this.uiCanvas.graphics.moveTo(100,100);
+//				this.uiCanvas.graphics.lineTo(500,600);
+
+				
+				this.ui1Canvas=new UIComponent();
+				this.addElement(this.ui1Canvas);
+				
+				this.ui2Canvas=new UIComponent();
+				this.addElement(this.ui2Canvas);
+				
+				this.ui3Canvas=new UIComponent();
+				this.addElement(this.ui3Canvas);
+
+				
+				
+				
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="148"
+			  y="497"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>
