@@ -2,14 +2,18 @@ package graphic {
 	import flash.display.Sprite;
 
 	public class Fk extends Sprite {
-		public function Fk() {
+		
+		public var color:uint;
+		
+		public function Fk(c:uint=0xff0000) {
 			super();
+			this.color=c;
 			this.init();
 		}
 
 		private function init():void {
-			this.graphics.beginFill(0xff0000);
-			this.graphics.drawRect(0,0, 40, 80);
+			this.graphics.beginFill(color);
+			this.graphics.drawRect(0,0, 20, 20);
 			this.graphics.endFill();
 		}
 
