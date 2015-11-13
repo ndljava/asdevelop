@@ -171,18 +171,24 @@ package com.action {
 			return Math.acos(v1.dotProd(v2)); //建议先回顾一下http://www.cnblogs.com/yjmyzz/archive/2010/06/06/1752674.html中提到的到夹角公式
 		}
 
-		//判定给定的向量是否在本向量的左侧或右侧，左侧返回-1，右侧返回1
+		/**
+		 * 判定给定的向量是否在本向量的左侧或右侧，左侧返回-1，右侧返回1
+		 */
 		public function sign(v2:Vector2D):int {
 			return perp.dotProd(v2) < 0 ? -1 : 1;
 		}
 
-		//返回与本向量垂直的向量(即自身顺时针旋转90度，得到一个新向量)
+		/**
+		 * 返回与本向量垂直的向量(即自身顺时针旋转90度，得到一个新向量) 
+		 */
 		public function get perp():Vector2D {
 			return new Vector2D(-y, x); //建议回顾一下"坐标旋转"
 		}
 
 
-		//返回二个矢量末端顶点之间的距离平方
+		/**
+		 * 返回二个矢量末端顶点之间的距离平方
+		 * */
 		public function distSQ(v2:Vector2D):Number {
 			var dx:Number=v2.x - x;
 			var dy:Number=v2.y - y;
