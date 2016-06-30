@@ -149,8 +149,10 @@
 //				trace(l, _t, vm, radian, Math.acos(1), radian * 180 / Math.PI)
 //				trace(l, _t, vm, Math.asin((vm * vm * l) / (9.8)), radian, Math.acos(1), radian * 180 / Math.PI)
 
+//				var dx:Number=sw + vm * Math.cos(radian) * t;
 				var dx:Number=sw + vm * Math.cos(radian) * t;
-				var dy:Number=sh - vm * Math.sin(radian) * t + 9.8 * (t * t) / 2;
+//				var dy:Number=sh - vm * Math.sin(radian) * t + (9.8 * (t * t)) / 2;
+				var dy:Number=sh - (dx * Math.tan(radian) - (9.8 * dx * dx) / (2 * Math.pow(vm * Math.cos(radian), 2)));
 
 //				if (int(l) == 0)
 //					trace(t, _t)
@@ -162,8 +164,8 @@
 
 				this.grp.graphics.lineTo(dx, dy);
 
-				t+=0.01;
-//				t+=1;
+//				t+=0.01;
+				t+=1;
 			}
 
 			protected function progress_changeHandler(event:Event):void {
@@ -228,7 +230,12 @@
 				 * 准确率较高的 注意: 用到垂直重力系数:Math.sin(Math.PI / 2 + radian)
 				 */
 				this.angle=(Math.asin((l) * 9.8 * Math.sin(Math.PI / 2 + Math.atan((this.ball.y - this.radBall.y) / (this.radBall.x - this.ball.x))) / (vm * vm))) / 2 * 180 / Math.PI;
-//				this.angle=(Math.asin((l) * 9.8* / (vm * vm))) / 2 * 180 / Math.PI;
+//				this.angle=(Math.asin((l) * 9.8 / (vm * vm))) / 2 * 180 / Math.PI;
+
+				var hsqrt:Number=Math.sqrt((this.ball.y - this.radBall.y) * 2 * 9.8);
+
+				this.angle=Math.asin(Math.sqrt((this.ball.y - this.radBall.y) * 2 * 9.8) / vm) * 180 / Math.PI;
+
 //				this.angle=Math.acos((this.radBall.x - this.ball.x) / vm) * 180 / Math.PI;
 
 				var vy:Number=vm * vm;

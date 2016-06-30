@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+
+			private var gimg:UIComponent;
+
+			private var cx:int=20;
+			private var cy:int=50;
+			private var mx:int=20;
+			private var my:int=50;
+
+			private var isDown:Boolean=false;
+			
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+				this.gimg.graphics.clear();
+				this.gimg.graphics.lineStyle(0,0xff0000);
+				this.gimg.graphics.moveTo(20, 50);
+				this.gimg.graphics.lineTo(cx, 2 * cx + 20);
+				
+				this.isDown=!this.isDown;
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				trace((4 - 2) / (0 - 2) * 1)
+				trace((0 / 2) * (0 / 2))
+
+				this.gimg=new UIComponent();
+				this.addElement(this.gimg);
+
+//				this.addEventListener(MouseEvent.CLICK,onClick);
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+				
+				trace(Math.acos(0.9733)*180/Math.PI);
+				trace((53*Math.PI/180),Math.cos(53*Math.PI/180)*10,Math.sin(53*Math.PI/180)*10);
+			}
+
+			private function onEnterFrame(e:Event):void {
+
+				if(!this.isDown)
+					return ;
+				
+//				this.gimg.graphics.moveTo(cx-1, 2 * cx + 20-1);
+				this.gimg.graphics.lineTo(cx, 50+Math.sin(cx/20)*30);
+
+				trace(cx, 2 * cx + 20);
+				
+				cx++;
+			}
+			
+			private function onClick(e:MouseEvent):void{
+				
+				this.mx=e.localX;
+				this.my=e.localY;
+				
+				
+				this.gimg.graphics.lineTo(e.localX, e.localY);
+			}
+			
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="291"
+			  y="206"
+			  label="按钮2"/>
+	<s:Button x="166"
+			  y="506"
+			  label="按钮1"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>

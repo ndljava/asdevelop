@@ -6,18 +6,20 @@
 
 	<fx:Script>
 		<![CDATA[
+			import graphic.Fk;
+
 			import mx.core.UIComponent;
 			import mx.events.FlexEvent;
 
 
 			private var uiCanvas:UIComponent;
-			
+
 			private var ui1Canvas:UIComponent;
 			private var ui2Canvas:UIComponent;
 			private var ui3Canvas:UIComponent;
 
-			
-			
+
+
 			protected function button1_clickHandler(event:MouseEvent):void {
 				// TODO Auto-generated method stub
 				this.uiCanvas.graphics.clear();
@@ -43,19 +45,24 @@
 //				this.uiCanvas.graphics.moveTo(100,100);
 //				this.uiCanvas.graphics.lineTo(500,600);
 
-				
+
 				this.ui1Canvas=new UIComponent();
 				this.addElement(this.ui1Canvas);
-				
+
 				this.ui2Canvas=new UIComponent();
 				this.addElement(this.ui2Canvas);
-				
+
 				this.ui3Canvas=new UIComponent();
 				this.addElement(this.ui3Canvas);
 
-				
-				
-				
+
+				this.ui1Canvas.addChild(new Fk());
+
+				this.ui1Canvas.x=200;
+//				this.ui1Canvas.y=200 * 3 + 100;
+				this.ui1Canvas.y=300;
+				this.ui1Canvas.z=200;// * 3 + 100 * 300 + 100;
+
 			}
 		]]>
 	</fx:Script>

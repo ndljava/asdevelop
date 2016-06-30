@@ -47,6 +47,12 @@
     <application path="LineOrCurve.mxml">
       <airExcludes/>
     </application>
+    <application path="PhysTest.mxml">
+      <airExcludes/>
+    </application>
+    <application path="PhysTest1.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>

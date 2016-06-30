@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="1024"
+					   height="768"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import graphic.Ball;
+
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+
+			private var ball1:Ball;
+			private var ball2:Ball;
+
+			private var grp:UIComponent;
+
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+				this.ball2.x=300 + Math.random() * 600;
+				this.ball2.y=Math.random() * 600;
+
+				
+				
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+				this.ball1=new Ball(5);
+				this.addElement(this.ball1);
+
+				this.ball1.x=300;
+				this.ball1.y=700;
+
+				this.ball2=new Ball(5);
+				this.addElement(this.ball2);
+
+				this.ball2.x=300;
+				this.ball2.y=30;
+
+				this.grp=new UIComponent();
+				this.addElement(this.grp);
+
+				this.grp.graphics.clear();
+				this.grp.graphics.lineStyle(0, 0xff0000);
+
+				this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			}
+
+			private function onEnterFrame(e:Event):void {
+
+
+
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="111"
+			  y="597"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>
