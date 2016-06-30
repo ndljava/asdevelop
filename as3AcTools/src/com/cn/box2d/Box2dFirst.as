@@ -10,13 +10,13 @@ package com.cn.box2d {
 	import Box2D.Dynamics.b2DebugDraw;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-	
+
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
-	
+
 	import graphic.Ball;
 
 	public class Box2dFirst extends Sprite {
@@ -41,7 +41,7 @@ package com.cn.box2d {
 			this.createBody(stage.stageWidth / 2, 0);
 
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-			
+
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
@@ -76,7 +76,7 @@ package com.cn.box2d {
 
 
 		}
-		
+
 //		private function getGoundAsBody():b2Body{
 //			
 //			
@@ -109,11 +109,11 @@ package com.cn.box2d {
 		private function onEnterFrame(e:Event):void {
 			world.Step(1 / 30, 10, 10);
 
-			if(mouseJoint!=null){
-				mouseJoint.SetTarget(new b2Vec2(mouseX/30,mouseY/30));
-				
+			if (mouseJoint != null) {
+				mouseJoint.SetTarget(new b2Vec2(mouseX / 30, mouseY / 30));
+
 			}
-			
+
 			for (var body:b2Body=world.GetBodyList(); body; body=body.GetNext()) {
 				if (body.GetUserData() != null) {
 					body.GetUserData().x=body.GetPosition().x * 30;

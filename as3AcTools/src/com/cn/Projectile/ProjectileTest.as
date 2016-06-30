@@ -44,9 +44,9 @@ package com.cn.Projectile {
 //			this.startBall.x+=p.x * 0.2;
 //			this.startBall.y+=p.y * 0.2;
 
-			this.startBall.x+=(10)
-			this.startBall.y+=(10);
-			
+			this.startBall.x+=0.5 * 10;
+			this.startBall.y+=0.5 * 10;
+
 		}
 
 		private function onClick(e:MouseEvent):void {

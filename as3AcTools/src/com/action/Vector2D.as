@@ -52,7 +52,9 @@ package com.action {
 			return _x * _x + _y * _y;
 		}
 
-		//获取向量的模(即大小)
+		/**
+		 * 获取向量的模(即大小)
+		 */
 		public function get length():Number {
 			return Math.sqrt(lengthSQ);
 		}
