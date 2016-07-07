@@ -6,6 +6,7 @@
 
 	<fx:Script>
 		<![CDATA[
+			import mx.core.INavigatorContent;
 			import mx.core.UIComponent;
 			import mx.events.FlexEvent;
 
@@ -51,9 +52,9 @@
 			}
 		}
 	}
- *
-	*
-			**/
+*
+*
+**/
 
 			protected function button1_clickHandler(event:MouseEvent):void {
 				// TODO Auto-generated method stub
@@ -108,6 +109,15 @@
 
 				trace((ax1 - dx2) * (ay2 - dy2) - (ax2 - dx2) * (ay1 - dy2));
 
+				/**
+				 * 根据叉积计算,同号是相交,不同则不交;
+				 **/ 
+				trace(dotLine(ax1, ay1, ax2, ay2, dx2, dy2), dotLine(ax2, ay2, dx1, dy1, dx2, dy2));
+				trace(dotLine(ax1, ay1, ax2, ay2, dx2, dy2) * dotLine(ax2, ay2, dx1, dy1, dx2, dy2));
+			}
+
+			private function dotLine(ax1:int, ay1:int, ax2:int, ay2:int, dx:int, dy:int):int {
+				return (ax1 - dx) * (ay2 - dy) - (ax2 - dx) * (ay1 - dy);
 			}
 
 			private var uiline1:UIComponent;
