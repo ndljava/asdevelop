@@ -53,6 +53,9 @@
     <application path="PhysTest1.mxml">
       <airExcludes/>
     </application>
+    <application path="LineBwteen.mxml">
+      <airExcludes/>
+    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>

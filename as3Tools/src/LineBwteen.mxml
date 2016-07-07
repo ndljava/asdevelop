@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+
+
+			/**
+			 * private function isLineIntersectRectangle(linePointX1:Number,
+												  linePointY1:Number,
+												  linePointX2:Number,
+												  linePointY2:Number,
+												  rectangleLeftTopX:Number,
+												  rectangleLeftTopY:Number,
+												  rectangleRightBottomX:Number,
+												  rectangleRightBottomY:Number):Boolean
+		{
+			var  lineHeight:Number = linePointY1 - linePointY2;
+			var lineWidth:Number = linePointX2 - linePointX1;  // 计算叉乘
+			var c:Number = linePointX1 * linePointY2 - linePointX2 * linePointY1;
+			if ((lineHeight * rectangleLeftTopX + lineWidth * rectangleLeftTopY + c >= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleRightBottomY + c <= 0)
+				|| (lineHeight * rectangleLeftTopX + lineWidth * rectangleLeftTopY + c <= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleRightBottomY + c >= 0)
+				|| (lineHeight * rectangleLeftTopX + lineWidth * rectangleRightBottomY + c >= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleLeftTopY + c <= 0)
+				|| (lineHeight * rectangleLeftTopX + lineWidth * rectangleRightBottomY + c <= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleLeftTopY + c >= 0))
+			{
+
+				if (rectangleLeftTopX > rectangleRightBottomX) {
+					var temp:Number = rectangleLeftTopX;
+					rectangleLeftTopX = rectangleRightBottomX;
+					rectangleRightBottomX = temp;
+				}
+				if (rectangleLeftTopY < rectangleRightBottomY) {
+					var temp1:Number = rectangleLeftTopY;
+					rectangleLeftTopY = rectangleRightBottomY;
+					rectangleRightBottomY = temp1;   }
+				if ((linePointX1 < rectangleLeftTopX && linePointX2 < rectangleLeftTopX)
+					|| (linePointX1 > rectangleRightBottomX && linePointX2 > rectangleRightBottomX)
+					|| (linePointY1 > rectangleLeftTopY && linePointY2 > rectangleLeftTopY)
+					|| (linePointY1 < rectangleRightBottomY && linePointY2 < rectangleRightBottomY)) {
+					return false;
+				} else {
+					return true;
+				}
+			} else {
+				return false;
+			}
+		}
+	}
+ *
+	*
+			**/
+
+			protected function button1_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+				var ax1:int=Math.random() * stage.stageWidth;
+				var ay1:int=Math.random() * stage.stageHeight;
+				var dx1:int=Math.random() * stage.stageWidth;
+				var dy1:int=Math.random() * stage.stageHeight;
+
+				this.uiline1.graphics.clear();
+				this.uiline1.graphics.lineStyle(0, 0xff0000);
+				this.uiline1.graphics.moveTo(ax1, ay1);
+				this.uiline1.graphics.lineTo(dx1, dy1);
+
+				var ax2:int=Math.random() * stage.stageWidth;
+				var ay2:int=Math.random() * stage.stageHeight;
+				var dx2:int=Math.random() * stage.stageWidth;
+				var dy2:int=Math.random() * stage.stageHeight;
+
+				this.uiline2.graphics.clear();
+				this.uiline2.graphics.lineStyle(0, 0xff0000);
+				this.uiline2.graphics.moveTo(ax2, ay2);
+				this.uiline2.graphics.lineTo(dx2, dy2);
+
+				trace("======================");
+				trace(ax1, ay1, dx1, dy1);
+				trace(ax2, ay2, dx2, dy2);
+
+//				var p1:int=ax
+
+				/*
+				trace(Math.max(ax1, dx1) < Math.min(ax2, dx2));
+				trace(Math.max(ay1, dy1) < Math.min(ay2, ay2));
+				trace(Math.max(ax2, dx2) < Math.min(ax1, dx1));
+				trace(Math.max(ay2, dy2) < Math.min(ay1, dy1));
+				*/
+
+				trace(Math.min(ax1, dx1) < Math.max(ax2, dx2));
+				trace(Math.min(ay1, dy1) < Math.max(ay2, ay2));
+				trace(Math.min(ax2, dx2) < Math.max(ax1, dx1));
+				trace(Math.min(ay2, dy2) < Math.max(ay1, dy1));
+
+//				trace(Math.max(ax1,dx1)<Math.min(ax2,dx2) && Math.max(ay1,dy1)<Math.)
+
+				var a:Number=Math.sqrt(Math.pow(ax1 - dx2, 2) + Math.pow(ay1 - dy2, 2));
+				var b:Number=Math.sqrt(Math.pow(ax2 - dx2, 2) + Math.pow(ay2 - dy2, 2));
+				var c:Number=Math.sqrt(Math.pow(ax2 - ax1, 2) + Math.pow(ay1 - ay2, 2));
+
+				var agl:Number=Math.acos((Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b));
+
+				trace(agl, "-------", a, b, c, Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2), (2 * a * b), Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2) / (2 * a * b));
+				trace(a * b * Math.sin(agl));
+
+				trace((ax1 - dx2) * (ay2 - dy2) - (ax2 - dx2) * (ay1 - dy2));
+
+			}
+
+			private var uiline1:UIComponent;
+			private var uiline2:UIComponent;
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+				// TODO Auto-generated method stub
+
+				this.uiline1=new UIComponent();
+				this.addElement(this.uiline1);
+
+				this.uiline2=new UIComponent();
+				this.addElement(this.uiline2);
+
+			}
+
+			protected function button2_clickHandler(event:MouseEvent):void {
+				// TODO Auto-generated method stub
+
+			}
+
+
+			private function isLineIntersectRectangle(linePointX1:Number, linePointY1:Number, linePointX2:Number, linePointY2:Number, rectangleLeftTopX:Number, rectangleLeftTopY:Number, rectangleRightBottomX:Number, rectangleRightBottomY:Number):Boolean {
+				var lineHeight:Number=linePointY1 - linePointY2;
+				var lineWidth:Number=linePointX2 - linePointX1; // 计算叉乘  
+				var c:Number=linePointX1 * linePointY2 - linePointX2 * linePointY1;
+				if ((lineHeight * rectangleLeftTopX + lineWidth * rectangleLeftTopY + c >= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleRightBottomY + c <= 0) || (lineHeight * rectangleLeftTopX + lineWidth * rectangleLeftTopY + c <= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleRightBottomY + c >= 0) || (lineHeight * rectangleLeftTopX + lineWidth * rectangleRightBottomY + c >= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleLeftTopY + c <= 0) || (lineHeight * rectangleLeftTopX + lineWidth * rectangleRightBottomY + c <= 0 && lineHeight * rectangleRightBottomX + lineWidth * rectangleLeftTopY + c >= 0)) {
+
+					if (rectangleLeftTopX > rectangleRightBottomX) {
+						var temp:Number=rectangleLeftTopX;
+						rectangleLeftTopX=rectangleRightBottomX;
+						rectangleRightBottomX=temp;
+					}
+
+					if (rectangleLeftTopY < rectangleRightBottomY) {
+						var temp1:Number=rectangleLeftTopY;
+						rectangleLeftTopY=rectangleRightBottomY;
+						rectangleRightBottomY=temp1;
+					}
+
+					if ((linePointX1 < rectangleLeftTopX && linePointX2 < rectangleLeftTopX) || (linePointX1 > rectangleRightBottomX && linePointX2 > rectangleRightBottomX) || (linePointY1 > rectangleLeftTopY && linePointY2 > rectangleLeftTopY) || (linePointY1 < rectangleRightBottomY && linePointY2 < rectangleRightBottomY)) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:Button x="428"
+			  y="484"
+			  label="按钮"
+			  click="button2_clickHandler(event)"/>
+	<s:Button x="119"
+			  y="484"
+			  label="按钮"
+			  click="button1_clickHandler(event)"/>
+</s:WindowedApplication>

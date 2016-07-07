@@ -25,8 +25,8 @@
 				this.ball2.x=300 + Math.random() * 600;
 				this.ball2.y=Math.random() * 600;
 
-				
-				
+
+
 			}
 
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
@@ -54,7 +54,9 @@
 
 			private function onEnterFrame(e:Event):void {
 
+				this.ball2.y+=5;
 
+				trace(Math.atan((this.ball2.y - this.ball1.y)/(this.ball2.x - this.ball1.x)) * 180 / Math.PI)
 
 			}
 		]]>
